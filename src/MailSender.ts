@@ -18,7 +18,7 @@ class MailSender {
     });
   }
 
-  sendEmail(targetEmail: string, content: string) {
+  sendEmail(targetEmail: string, content: string): Promise<SMTPTransport.SentMessageInfo> {
     const message : Mail.Options = {
       from: 'Music Apps',
       to: targetEmail,

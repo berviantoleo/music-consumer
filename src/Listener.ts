@@ -13,7 +13,7 @@ class Listener {
     this.listen = this.listen.bind(this);
   }
 
-  public async listen(message: amqp.ConsumeMessage | null) {
+  public async listen(message: amqp.ConsumeMessage | null): Promise<void> {
     try {
       if (!message)
       {

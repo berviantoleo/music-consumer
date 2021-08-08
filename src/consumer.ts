@@ -1,4 +1,4 @@
-require('dotenv').config();
+import 'dotenv/config';
 import amqp from 'amqplib';
 import PlaylistService from './PlaylistService';
 import MailSender from './MailSender';

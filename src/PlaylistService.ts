@@ -1,4 +1,5 @@
 import { Pool } from 'pg';
+import { Songs } from './Songs';
 
 class PlaylistService {
 
@@ -8,14 +9,14 @@ class PlaylistService {
     this.pool = new Pool();
   }
 
-  async getSongsfromPlaylist(playlistId: string) {
+  async getSongsfromPlaylist(playlistId: string): Promise<Songs[]> {
     const query = {
-      text: `SELECT songs.* FROM playlistsongs
+      text: `SELECT songs.id, songs.title, songs.performer FROM playlistsongs
       LEFT JOIN songs ON songs.id = playlistsongs."songId"
       WHERE playlistsongs."playlistId" = $1`,
       values: [playlistId],
     };
-    const result = await this.pool.query(query);
+    const result = await this.pool.query<Songs>(query);
     return result.rows;
   }
 }
