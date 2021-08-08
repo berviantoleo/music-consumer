@@ -9,5 +9,5 @@ FROM node:14-alpine as runtime
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn --frozen-lockfile --production
-COPY lib/ lib/
+COPY --from=build lib/ lib/
 CMD ["yarn", "start"]
