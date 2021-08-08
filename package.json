@@ -2,10 +2,18 @@
   "name": "music-consumer",
   "version": "1.0.0",
   "description": "Music consumer",
-  "main": "index.js",
+  "main": "lib/consumer.js",
+  "files": [
+    "src",
+    "lib"
+  ],
   "scripts": {
-    "lint": "eslint ./src",
-    "start": "node src/consumer.js"
+    "fix-lint": "eslint . --ext .ts --fix",
+    "lint": "eslint . --ext .ts",
+    "build": "tsc",
+    "start": "node lib/consumer.js",
+    "start-dev": "ts-node-dev src/consumer.ts",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -25,8 +33,19 @@
     "pg": "^8.6.0"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.8.1",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.4.13",
+    "@types/nodemailer": "^6.4.4",
+    "@types/pg": "^8.6.1",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/parser": "^4.29.0",
     "eslint": "^7.29.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.23.4"
+    "eslint-plugin-import": "^2.23.4",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.4",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.3.5"
   }
 }

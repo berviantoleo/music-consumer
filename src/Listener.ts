@@ -1,13 +1,25 @@
+import amqp from 'amqplib';
+import MailSender from "./MailSender";
+import PlaylistService from "./PlaylistService";
+
 class Listener {
-  constructor(playlistService, mailSender) {
+
+  private playlistService: PlaylistService;
+  private mailSender: MailSender;
+
+  constructor(playlistService: PlaylistService, mailSender: MailSender) {
     this.playlistService = playlistService;
     this.mailSender = mailSender;
-
     this.listen = this.listen.bind(this);
   }
 
-  async listen(message) {
+  public async listen(message: amqp.ConsumeMessage | null): Promise<void> {
     try {
+      if (!message)
+      {
+        console.log("Message Empty!");
+        return;
+      }
       const { playlistId, targetEmail } = JSON.parse(message.content.toString());
       const songs = await this.playlistService.getSongsfromPlaylist(playlistId);
       const result = await this.mailSender.sendEmail(targetEmail, JSON.stringify(songs));
@@ -18,4 +30,4 @@ class Listener {
   }
 }
 
-module.exports = Listener;
+export default Listener;
