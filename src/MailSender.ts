@@ -1,6 +1,11 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
+import Mail from 'nodemailer/lib/mailer';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 class MailSender {
+
+  private transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>;
+
   constructor() {
     this.transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -13,8 +18,8 @@ class MailSender {
     });
   }
 
-  sendEmail(targetEmail, content) {
-    const message = {
+  sendEmail(targetEmail: string, content: string) {
+    const message : Mail.Options = {
       from: 'Music Apps',
       to: targetEmail,
       subject: 'Ekspor Playlist',
@@ -30,4 +35,4 @@ class MailSender {
   }
 }
 
-module.exports = MailSender;
+export default MailSender;
